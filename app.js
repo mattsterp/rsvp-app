@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 		const li = document.createElement('li');
-		appendToLI('span', 'textContent', 'text');
+		appendToLI('span', 'textContent', text);
 		appendToLI('label', 'textContent', 'Confirmed').appendChild(createElement('input', 'type', 'checkbox'));
 		appendToLI('button', 'textContent', 'edit');
 		appendToLI('button', 'textContent', 'remove');
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	ul.addEventListener('change', (e) => {
 		const checkbox = e.target;
-		const listItem = checkbox.parentNode;
+		const listItem = checkbox.parentNode.parentNode;
 		const checked = checkbox.checked;
 
 		if (checked) {
@@ -82,14 +82,14 @@ document.addEventListener('DOMContentLoaded', () => {
 			const ul = li.parentNode;
 			const action = button.textContent;
 			const nameActions = {
-				remove: (li) => {
+				remove: () => {
 					ul.removeChild(li);
 				},
 				edit: () => {
 					const span = li.firstElementChild;
 					const input = document.createElement('input');
 					input.type = 'text';
-					input.textContent = span.textContent;
+					input.value = span.textContent;
 					li.insertBefore(input, span);
 					li.removeChild(span);
 					button.textContent = 'save';
